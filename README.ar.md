@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
 
-محرّك محلّي للنشر والتدقيق الأمني وإدارة الذاكرة (`claude-code-setup`)، طُوِّر لإدارة بيئة **Claude Code**. وزمن التشغيل ملفٌّ تنفيذيٌّ واحدٌ مكتوبٌ بلغة Rust؛ ولا يلزم لتشغيله وجود Rust أو Python أو Node على الجهاز.
+محرّك محلّي للنشر والتدقيق الأمني وإدارة الذاكرة (`pasli-zemin`)، طُوِّر لإدارة بيئة **Claude Code**. وزمن التشغيل ملفٌّ تنفيذيٌّ واحدٌ مكتوبٌ بلغة Rust؛ ولا يلزم لتشغيله وجود Rust أو Python أو Node على الجهاز.
 
 ### ملاحظة أمانة: هذا المستودع ليس بنسبة 100% Rust
 
@@ -55,7 +55,7 @@
 ## 🏗️ 2. البنية والوحدات
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # تبعيّات Rust وتعريفات الحزمة (v0.1.6)
 ├── manifest.json               # بيانُ إضافة Claude Desktop (8 أدوات MCP)
 ├── icon.png                    # أيقونةُ الإضافة
@@ -99,25 +99,25 @@ claude-code-setup-rustified/
 
 هناك تنصيبان مختلفان؛ فاختر ما تريد.
 
-**إضافةُ Claude Desktop (المُستحسَن)** — نزِّل الحزمةَ الموافقةَ لنظام تشغيلك من [آخر إصدار](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest)، ثمّ اسحبها إلى Claude Desktop → Settings → Extensions:
+**إضافةُ Claude Desktop (المُستحسَن)** — نزِّل الحزمةَ الموافقةَ لنظام تشغيلك من [آخر إصدار](https://github.com/Ercaner1988/pasli-zemin/releases/latest)، ثمّ اسحبها إلى Claude Desktop → Settings → Extensions:
 
 | نظام التشغيل | الملف | الحجم التقريبي |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 م.ب |
-| macOS | `claude-code-setup-macos.mcpb` | 10 م.ب |
-| Linux | `claude-code-setup-linux.mcpb` | 12 م.ب |
+| Windows | `pasli-zemin-windows.mcpb` | 9 م.ب |
+| macOS | `pasli-zemin-macos.mcpb` | 10 م.ب |
+| Linux | `pasli-zemin-linux.mcpb` | 12 م.ب |
 
 **أداةُ سطر الأوامر** — إن أردت استعمالها من الطرفيّة:
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-هذان المُنصِّبان نصّان برمجيّان بلغتَي PowerShell وBash (لا Rust)؛ يُنصِّبان الملفَّ التنفيذيَّ المُنزَّل في مجلّد المستخدم ويُضيفانه إلى PATH (ولا يلزم امتيازُ المدير). وهما **لا يُسجّلان** الإضافة؛ فللإضافة استعمل مسار `.mcpb` أعلاه. وللتحقّق نفِّذ `claude-code-setup status` في طرفيّةٍ جديدة.
+هذان المُنصِّبان نصّان برمجيّان بلغتَي PowerShell وBash (لا Rust)؛ يُنصِّبان الملفَّ التنفيذيَّ المُنزَّل في مجلّد المستخدم ويُضيفانه إلى PATH (ولا يلزم امتيازُ المدير). وهما **لا يُسجّلان** الإضافة؛ فللإضافة استعمل مسار `.mcpb` أعلاه. وللتحقّق نفِّذ `pasli-zemin status` في طرفيّةٍ جديدة.
 
 لتفاصيل التنصيب انظر [INSTALLATION.ar.md](INSTALLATION.ar.md)
 
@@ -134,17 +134,17 @@ curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rusti
 cargo build --release
 
 # الملفُّ التنفيذيُّ الناتج:
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### التنصيبُ التلقائيُّ وتشخيصُ البيئة
 ```bash
 # يتحقّق من الشروط المسبقة ويُنشئ هيكلَ الذاكرة
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # حالةُ تشخيصِ النظام والبيئة
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -177,23 +177,23 @@ cargo build --release
 #### إدارةُ خوادم MCP وفق الهدف
 ```bash
 # تعريفُ خادم MCP على مستوى المشروع (.mcp.json)
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # تعطيلُ الخادم في إعداد Claude Desktop
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # إزالةُ الخادم كلَّه (العلَمُ --remove إلزاميّ)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### إضافةُ ملحوظةٍ إلى الذاكرة والبحثُ الهجين بـ RRF
 ```bash
-./target/release/claude-code-setup memory-note "القرارات البنيويّة" --body "تمّ نقلُ زمن التشغيل إلى ملفٍّ تنفيذيٍّ بلغة Rust."
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "بنية Rust" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related mimari-kararlar.md
+./target/release/pasli-zemin memory-note "القرارات البنيويّة" --body "تمّ نقلُ زمن التشغيل إلى ملفٍّ تنفيذيٍّ بلغة Rust."
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "بنية Rust" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related mimari-kararlar.md
 ```
 
 ---

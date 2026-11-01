@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
 
-Herramienta local de despliegue, auditoría de seguridad y motor de memoria (`claude-code-setup`) desarrollada para administrar el entorno de **Claude Code**. En tiempo de ejecución es un único binario de Rust; para usarlo no hace falta tener Rust, Python ni Node instalados en la máquina.
+Herramienta local de despliegue, auditoría de seguridad y motor de memoria (`pasli-zemin`) desarrollada para administrar el entorno de **Claude Code**. En tiempo de ejecución es un único binario de Rust; para usarlo no hace falta tener Rust, Python ni Node instalados en la máquina.
 
 ### Nota de honestidad: este repositorio no es 100 % Rust
 
@@ -55,7 +55,7 @@ Resumen exacto: **el binario en tiempo de ejecución es Rust puro; la instalaci�
 ## 🏗️ 2. Arquitectura y Módulos
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # Dependencias de Rust y definiciones del paquete (v0.1.6)
 ├── manifest.json               # Manifiesto de la extensión de Claude Desktop (8 herramientas MCP)
 ├── icon.png                    # Icono de la extensión
@@ -99,25 +99,25 @@ claude-code-setup-rustified/
 
 Hay dos instalaciones distintas; decide cuál quieres.
 
-**Extensión de Claude Desktop (recomendado)** — descarga el paquete correspondiente a tu sistema operativo desde la [última publicación](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest) y arrástralo a la pantalla Claude Desktop → Settings → Extensions:
+**Extensión de Claude Desktop (recomendado)** — descarga el paquete correspondiente a tu sistema operativo desde la [última publicación](https://github.com/Ercaner1988/pasli-zemin/releases/latest) y arrástralo a la pantalla Claude Desktop → Settings → Extensions:
 
 | Sistema operativo | Archivo | Tamaño aproximado |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 MB |
-| macOS | `claude-code-setup-macos.mcpb` | 10 MB |
-| Linux | `claude-code-setup-linux.mcpb` | 12 MB |
+| Windows | `pasli-zemin-windows.mcpb` | 9 MB |
+| macOS | `pasli-zemin-macos.mcpb` | 10 MB |
+| Linux | `pasli-zemin-linux.mcpb` | 12 MB |
 
 **Herramienta de línea de órdenes** — si quieres usarla desde la terminal:
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-Estos instaladores son scripts de PowerShell y Bash (no de Rust); instalan el binario descargado en el directorio del usuario y lo añaden a PATH (no se requieren privilegios de administrador). **No registran** la extensión: para la extensión usa la vía `.mcpb` de arriba. Para verificar, ejecuta `claude-code-setup status` en una terminal nueva.
+Estos instaladores son scripts de PowerShell y Bash (no de Rust); instalan el binario descargado en el directorio del usuario y lo añaden a PATH (no se requieren privilegios de administrador). **No registran** la extensión: para la extensión usa la vía `.mcpb` de arriba. Para verificar, ejecuta `pasli-zemin status` en una terminal nueva.
 
 Para la instalación detallada, véase [INSTALLATION.es.md](INSTALLATION.es.md)
 
@@ -134,17 +134,17 @@ Para la instalación detallada, véase [INSTALLATION.es.md](INSTALLATION.es.md)
 cargo build --release
 
 # Binario resultante:
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### Instalación Automática y Diagnóstico del Entorno
 ```bash
 # Comprueba los requisitos previos e instala el esqueleto de memoria
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # Estado de diagnóstico del sistema y del entorno
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -177,23 +177,23 @@ Todas las órdenes aceptan la anulación `--home-dir` para aislar las pruebas (e
 #### Administrar Servidores MCP por Destino
 ```bash
 # Definir un servidor MCP a nivel de proyecto (.mcp.json)
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # Desactivar el servidor en la configuración de Claude Desktop
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # Retirar el servidor por completo (el indicador --remove es obligatorio)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### Añadir Notas a la Memoria y Búsqueda Híbrida RRF
 ```bash
-./target/release/claude-code-setup memory-note "Decisiones de Arquitectura" --body "La migración del tiempo de ejecución a un binario nativo de Rust está completa."
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "arquitectura Rust" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related mimari-kararlar.md
+./target/release/pasli-zemin memory-note "Decisiones de Arquitectura" --body "La migración del tiempo de ejecución a un binario nativo de Rust está completa."
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "arquitectura Rust" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related mimari-kararlar.md
 ```
 
 ---

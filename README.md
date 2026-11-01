@@ -5,9 +5,9 @@
 [![Rust](https://img.shields.io/badge/Rust%20çekirdek-%2591-orange.svg)](https://www.rust-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
-[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/Ercaner1988/claude-code-setup-rustified?utm_source=badge)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/Ercaner1988/pasli-zemin?utm_source=badge)
 
-**Claude Code** ortamını yönetmek için geliştirilmiş yerel dağıtım, güvenlik denetimi ve hafıza motoru (`claude-code-setup`). Çalışma zamanı tek bir Rust ikili dosyasıdır; kullanmak için makinede Rust, Python veya Node kurulu olması gerekmez.
+**Claude Code** ortamını yönetmek için geliştirilmiş yerel dağıtım, güvenlik denetimi ve hafıza motoru (`pasli-zemin`). Çalışma zamanı tek bir Rust ikili dosyasıdır; kullanmak için makinede Rust, Python veya Node kurulu olması gerekmez.
 
 ### Dürüstlük notu: bu depo %100 Rust değildir
 
@@ -56,7 +56,7 @@ Doğru özet: **çalışma zamanı ikilisi saf Rust; kurulum, paketleme ve sür�
 ## 🏗️ 2. Mimari ve Modüller
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # Rust bağımlılıkları ve paket tanımları (v0.1.6)
 ├── manifest.json               # Claude Desktop eklenti bildirimi (8 MCP aracı)
 ├── icon.png                    # Eklenti simgesi
@@ -100,25 +100,25 @@ claude-code-setup-rustified/
 
 İki ayrı kurulum var; hangisini istediğine karar ver.
 
-**Claude Desktop eklentisi (önerilen)** — [son sürümden](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest) işletim sistemine uyan paketi indir, Claude Desktop → Settings → Extensions ekranına sürükle:
+**Claude Desktop eklentisi (önerilen)** — [son sürümden](https://github.com/Ercaner1988/pasli-zemin/releases/latest) işletim sistemine uyan paketi indir, Claude Desktop → Settings → Extensions ekranına sürükle:
 
 | İşletim sistemi | Dosya | Yaklaşık boyut |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 MB |
-| macOS | `claude-code-setup-macos.mcpb` | 10 MB |
-| Linux | `claude-code-setup-linux.mcpb` | 12 MB |
+| Windows | `pasli-zemin-windows.mcpb` | 9 MB |
+| macOS | `pasli-zemin-macos.mcpb` | 10 MB |
+| Linux | `pasli-zemin-linux.mcpb` | 12 MB |
 
 **Komut satırı aracı** — terminalden kullanmak istersen:
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-Bu kurucular PowerShell ve Bash betikleridir (Rust değil); indirdikleri ikili dosyayı kullanıcı dizinine kurup PATH'e ekler (yönetici yetkisi gerekmez). Eklentiyi **kaydetmez** — eklenti için yukarıdaki `.mcpb` yolunu kullan. Doğrulama için yeni bir terminalde `claude-code-setup status`.
+Bu kurucular PowerShell ve Bash betikleridir (Rust değil); indirdikleri ikili dosyayı kullanıcı dizinine kurup PATH'e ekler (yönetici yetkisi gerekmez). Eklentiyi **kaydetmez** — eklenti için yukarıdaki `.mcpb` yolunu kullan. Doğrulama için yeni bir terminalde `pasli-zemin status`.
 
 Detaylı kurulum için bkz. [INSTALLATION.md](INSTALLATION.md)
 
@@ -135,17 +135,17 @@ Detaylı kurulum için bkz. [INSTALLATION.md](INSTALLATION.md)
 cargo build --release
 
 # Oluşan ikili dosya:
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### Otomatik Kurulum ve Ortam Tanısı
 ```bash
 # Ön koşulları kontrol eder, hafıza iskeletini kurar
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # Sistem ve ortam tanı durumu
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -178,23 +178,23 @@ Tüm komutlar test yalıtımı için `--home-dir` geçersiz kılmasını kabul e
 #### MCP Sunucularını Hedefe Göre Yönetme
 ```bash
 # Proje seviyesinde (.mcp.json) MCP sunucusu tanımla
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # Claude Desktop yapılandırmasındaki sunucuyu devre dışı bırak
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # Sunucuyu tamamen kaldır (--remove bayrağı zorunludur)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### Hafızaya Not Ekleme ve RRF Hibrit Arama
 ```bash
-./target/release/claude-code-setup memory-note "Mimari Kararlar" --body "Rust yerel ikili dönüşümü tamamlandı."
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "Rust mimari" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related mimari-kararlar.md
+./target/release/pasli-zemin memory-note "Mimari Kararlar" --body "Rust yerel ikili dönüşümü tamamlandı."
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "Rust mimari" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related mimari-kararlar.md
 ```
 
 ---

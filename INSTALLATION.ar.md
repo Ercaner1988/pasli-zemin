@@ -2,7 +2,7 @@
 
 # دليل تثبيت Claude Code المستقل (نواة Rust بملف تنفيذي واحد)
 
-يقدم هذا الدليل تعليمات خطوة بخطوة لتثبيت وتكوين أداة سطر الأوامر **Claude Code Setup** (`claude-code-setup`) المبنية على نواة Rust عبر منصات التشغيل المختلفة.
+يقدم هذا الدليل تعليمات خطوة بخطوة لتثبيت وتكوين أداة سطر الأوامر **Paslı Zemin** (`pasli-zemin`) المبنية على نواة Rust عبر منصات التشغيل المختلفة.
 
 > **ملاحظة أمانة:** الملف التنفيذي الذي تشغّله مكتوب بلغة Rust خالصة وقائم بذاته. أمّا **أدوات التثبيت في هذا الدليل فليست بلغة Rust**: الملف `install-windows.ps1` نصٌّ برمجي بلغة PowerShell، والملف `install-macos.sh` نصٌّ برمجي بلغة Bash. كما تُنتَج حزم الإصدار بواسطة `package-extension.py` (بلغة Python). إحصاءات لغات GitHub: **%90.5 Rust، %3.5 Shell، %3.2 Python، %2.8 PowerShell** (نسبة الأسطر المقيسة: 91.2% Rust، و8.8% PowerShell + Bash + Python).
 
@@ -24,35 +24,35 @@
 التنزيل والتنفيذ عبر PowerShell:
 ```powershell
 # تنزيل الملف التنفيذي للإصدار
-Invoke-WebRequest -Uri "https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-windows-x86_64.exe" -OutFile "claude-code-setup.exe"
+Invoke-WebRequest -Uri "https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-windows-x86_64.exe" -OutFile "pasli-zemin.exe"
 
 # تشغيل التثبيت وإعداد الذاكرة
-.\claude-code-setup.exe install --hooks
+.\pasli-zemin.exe install --hooks
 ```
 
 ### Linux (x64)
 التنزيل عبر الطرفية ومنح صلاحيات التنفيذ:
 ```bash
 # تنزيل الملف التنفيذي
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-linux-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-linux-x86_64
 
 # منح صلاحية التنفيذ
-chmod +x claude-code-setup-linux-x86_64
+chmod +x pasli-zemin-linux-x86_64
 
 # تشغيل التثبيت
-./claude-code-setup-linux-x86_64 install --hooks
+./pasli-zemin-linux-x86_64 install --hooks
 ```
 
 ### macOS (x64)
 ```bash
 # تنزيل الملف التنفيذي
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-macos-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-macos-x86_64
 
 # منح صلاحية التنفيذ
-chmod +x claude-code-setup-macos-x86_64
+chmod +x pasli-zemin-macos-x86_64
 
 # تشغيل التثبيت
-./claude-code-setup-macos-x86_64 install --hooks
+./pasli-zemin-macos-x86_64 install --hooks
 ```
 
 ---
@@ -63,20 +63,20 @@ chmod +x claude-code-setup-macos-x86_64
 
 ```bash
 # استنساخ المستودع
-git clone https://github.com/Ercaner1988/claude-code-setup-rustified.git
-cd claude-code-setup-rustified
+git clone https://github.com/Ercaner1988/pasli-zemin.git
+cd pasli-zemin
 
 # بناء النسخة التنفيذية
 cargo build --release
 
 # تشغيل التثبيت
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 ```
 
 للتثبيت على مستوى النظام بالكامل عبر cargo:
 ```bash
 cargo install --path .
-claude-code-setup install --hooks
+pasli-zemin install --hooks
 ```
 
 ---
@@ -87,10 +87,10 @@ claude-code-setup install --hooks
 
 ```bash
 # تشغيل تشخيص البيئة
-claude-code-setup status
+pasli-zemin status
 
 # تشغيل حزمة اختبارات التشخيص
-claude-code-setup test
+pasli-zemin test
 ```
 
 ---
@@ -101,10 +101,10 @@ claude-code-setup test
 
 ```bash
 # التدقيق الأمني مع الإصلاح التلقائي
-claude-code-setup security-audit --fix
+pasli-zemin security-audit --fix
 
 # تثبيت خطاف pre-commit في مستودع
-claude-code-setup install-hooks --repo-dir .
+pasli-zemin install-hooks --repo-dir .
 ```
 
 ---

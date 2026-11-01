@@ -19,7 +19,7 @@ mkdir "$HOME\claude_global_memory\knowledge"
 mkdir -p ~/claude_global_memory/knowledge
 ```
 
-Add Markdown notes here (or via `claude-code-setup memory-note`). `[[Wikilinks]]` between notes become graph edges when indexed.
+Add Markdown notes here (or via `pasli-zemin memory-note`). `[[Wikilinks]]` between notes become graph edges when indexed.
 
 ## 3. MCP Servers
 
@@ -57,11 +57,11 @@ echo '[[ -f ~/.env.claude ]] && source ~/.env.claude' >> ~/.bashrc
 
 ## 5. Git Hooks
 
-`claude-code-setup install-hooks` writes a pre-commit hook that blocks direct commits to `main`/`master` and scans staged diffs for hardcoded secrets. Equivalent manual step: copy the hook content into `.git/hooks/pre-commit` and make it executable.
+`pasli-zemin install-hooks` writes a pre-commit hook that blocks direct commits to `main`/`master` and scans staged diffs for hardcoded secrets. Equivalent manual step: copy the hook content into `.git/hooks/pre-commit` and make it executable.
 
 ## 6. Verify
 
 ```bash
 claude --version
-claude-code-setup status
+pasli-zemin status
 ```

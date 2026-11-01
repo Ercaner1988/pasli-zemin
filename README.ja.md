@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
 
-**Claude Code** 環境を管理するためのローカルな配備・セキュリティ監査・記憶エンジン (`claude-code-setup`) です。実行時は単一の Rust バイナリであり、実行にあたって Rust・Python・Node のインストールは必要ありません。
+**Claude Code** 環境を管理するためのローカルな配備・セキュリティ監査・記憶エンジン (`pasli-zemin`) です。実行時は単一の Rust バイナリであり、実行にあたって Rust・Python・Node のインストールは必要ありません。
 
 ### 誠実性に関する注記: 本リポジトリは 100% Rust ではありません
 
@@ -55,7 +55,7 @@ GitHub の言語統計および計測されたコードベース構成比 (2026-
 ## 🏗️ 2. アーキテクチャとモジュール
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # Rust 依存関係とパッケージ定義 (v0.1.6)
 ├── manifest.json               # Claude Desktop 拡張マニフェスト (8 MCP ツール)
 ├── icon.png                    # 拡張アイコン
@@ -99,25 +99,25 @@ claude-code-setup-rustified/
 
 インストールは 2 種類あります。どちらを望むか決めてください。
 
-**Claude Desktop 拡張 (推奨)** — [最新リリース](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest)からお使いの OS に合うパッケージをダウンロードし、Claude Desktop → Settings → Extensions 画面へドラッグしてください:
+**Claude Desktop 拡張 (推奨)** — [最新リリース](https://github.com/Ercaner1988/pasli-zemin/releases/latest)からお使いの OS に合うパッケージをダウンロードし、Claude Desktop → Settings → Extensions 画面へドラッグしてください:
 
 | OS | ファイル | 概算サイズ |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 MB |
-| macOS | `claude-code-setup-macos.mcpb` | 10 MB |
-| Linux | `claude-code-setup-linux.mcpb` | 12 MB |
+| Windows | `pasli-zemin-windows.mcpb` | 9 MB |
+| macOS | `pasli-zemin-macos.mcpb` | 10 MB |
+| Linux | `pasli-zemin-linux.mcpb` | 12 MB |
 
 **コマンドライン道具** — 端末から使う場合:
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-これらのインストーラーは PowerShell と Bash のスクリプトであり (Rust ではありません)、ダウンロードしたバイナリをユーザーディレクトリへ設置し PATH に追加します (管理者権限は不要)。拡張の**登録は行いません** — 拡張には上記の `.mcpb` の経路を用いてください。確認には新しい端末で `claude-code-setup status` を実行します。
+これらのインストーラーは PowerShell と Bash のスクリプトであり (Rust ではありません)、ダウンロードしたバイナリをユーザーディレクトリへ設置し PATH に追加します (管理者権限は不要)。拡張の**登録は行いません** — 拡張には上記の `.mcpb` の経路を用いてください。確認には新しい端末で `pasli-zemin status` を実行します。
 
 詳細なインストールは [INSTALLATION.ja.md](INSTALLATION.ja.md) を参照してください。
 
@@ -134,17 +134,17 @@ curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rusti
 cargo build --release
 
 # 生成されるバイナリ:
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### 自動セットアップと環境診断
 ```bash
 # 前提条件を確認し、記憶の骨格を設置します
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # システムおよび環境の診断状態
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -177,23 +177,23 @@ cargo build --release
 #### ターゲット別の MCP サーバー管理
 ```bash
 # プロジェクト水準 (.mcp.json) で MCP サーバーを定義
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # Claude Desktop 設定内のサーバーを無効化
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # サーバーを完全に除去 (--remove フラグは必須)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### 記憶へのノート追加と RRF ハイブリッド検索
 ```bash
-./target/release/claude-code-setup memory-note "設計上の決定" --body "実行時の Rust ネイティブバイナリ化が完了した。"
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "Rust 設計" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related mimari-kararlar.md
+./target/release/pasli-zemin memory-note "設計上の決定" --body "実行時の Rust ネイティブバイナリ化が完了した。"
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "Rust 設計" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related mimari-kararlar.md
 ```
 
 ---

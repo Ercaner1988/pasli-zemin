@@ -2,7 +2,7 @@
 
 # Claude Code スタンドアロンインストールガイド (Rust コア単一バイナリ)
 
-このガイドでは、**Claude Code** 環境を管理する Rust コアのローカル CLI ツール (`claude-code-setup`) を各プラットフォームにインストールおよび設定する方法を解説します。
+このガイドでは、**Claude Code** 環境を管理する Rust コアのローカル CLI ツール (`pasli-zemin`) を各プラットフォームにインストールおよび設定する方法を解説します。
 
 > **誠実性に関する注記:** 実行されるバイナリは純粋な Rust であり、自己完結しています。しかし本ガイドの**インストーラーは Rust ではありません**。`install-windows.ps1` は PowerShell スクリプト、`install-macos.sh` は Bash スクリプトです。リリースパッケージは `package-extension.py` (Python) で生成されます。GitHub の言語統計: **Rust 90.5%, Shell 3.5%, Python 3.2%, PowerShell 2.8%** (計測された行数構成比: Rust 91.2%、PowerShell + Bash + Python 8.8%)。
 
@@ -24,34 +24,34 @@ GitHub Release ページからお使いの OS に適したバイナリを直接�
 PowerShell 経由で実行可能バイナリをダウンロード:
 ```powershell
 # バイナリアセットのダウンロード
-Invoke-WebRequest -Uri "https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-windows-x86_64.exe" -OutFile "claude-code-setup.exe"
+Invoke-WebRequest -Uri "https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-windows-x86_64.exe" -OutFile "pasli-zemin.exe"
 
 # 自動セットアップの実行
-.\claude-code-setup.exe install --hooks
+.\pasli-zemin.exe install --hooks
 ```
 
 ### Linux (x64)
 ```bash
 # バイナリアセットのダウンロード
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-linux-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-linux-x86_64
 
 # 実行権限の付与
-chmod +x claude-code-setup-linux-x86_64
+chmod +x pasli-zemin-linux-x86_64
 
 # セットアップの実行
-./claude-code-setup-linux-x86_64 install --hooks
+./pasli-zemin-linux-x86_64 install --hooks
 ```
 
 ### macOS (x64)
 ```bash
 # バイナリアセットのダウンロード
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-macos-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-macos-x86_64
 
 # 実行権限の付与
-chmod +x claude-code-setup-macos-x86_64
+chmod +x pasli-zemin-macos-x86_64
 
 # セットアップの実行
-./claude-code-setup-macos-x86_64 install --hooks
+./pasli-zemin-macos-x86_64 install --hooks
 ```
 
 ---
@@ -62,20 +62,20 @@ Rust 環境 (`cargo` 1.80 以上) がインストールされている場合:
 
 ```bash
 # リポジトリのクローン
-git clone https://github.com/Ercaner1988/claude-code-setup-rustified.git
-cd claude-code-setup-rustified
+git clone https://github.com/Ercaner1988/pasli-zemin.git
+cd pasli-zemin
 
 # リリリースバイナリのビルド
 cargo build --release
 
 # セットアップの実行
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 ```
 
 システム全体にインストールする場合:
 ```bash
 cargo install --path .
-claude-code-setup install --hooks
+pasli-zemin install --hooks
 ```
 
 ---
@@ -84,10 +84,10 @@ claude-code-setup install --hooks
 
 ```bash
 # 環境ステータスの診断
-claude-code-setup status
+pasli-zemin status
 
 # 診断テストスイートの実行
-claude-code-setup test
+pasli-zemin test
 ```
 
 ---
@@ -96,10 +96,10 @@ claude-code-setup test
 
 ```bash
 # 自動修復付きセキュリティ監査
-claude-code-setup security-audit --fix
+pasli-zemin security-audit --fix
 
 # リポジトリへの pre-commit フックのインストール
-claude-code-setup install-hooks --repo-dir .
+pasli-zemin install-hooks --repo-dir .
 ```
 
 ---

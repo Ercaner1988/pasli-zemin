@@ -3,9 +3,9 @@ use clap::{Parser, Subcommand};
 use crate::mcp::McpTarget;
 
 #[derive(Parser)]
-#[command(name = "claude-code-setup")]
+#[command(name = "pasli-zemin")]
 #[command(version)]
-#[command(about = "Bagimsiz Rust CLI: Claude Code ortam kurulumu, dinamik MCP yonetimi, semantik + graf hafiza motoru", long_about = None)]
+#[command(about = "Paslı Zemin: 4 AI geliştirme ortamı (Claude Code, Claude Desktop, OpenAI Codex, Antigravity) için donanım bekçisi, Windows Work IQ ve Bun MCP orkestratörü", long_about = None)]
 pub struct Cli {
     #[arg(
         long,
@@ -219,4 +219,63 @@ pub enum Commands {
 
     /// Display environment status summary
     Status,
+
+    /// Hardware Governor (QoS & RAM trimming to prevent freezes)
+    Governor {
+        #[command(subcommand)]
+        action: GovernorAction,
+    },
+
+    /// Synchronize MCP configurations and Bun optimizations across all 4 AI environments
+    Sync {
+        #[arg(
+            long,
+            default_value = "all",
+            help = "Target: all, claude-code, claude-desktop, codex, antigravity"
+        )]
+        target: String,
+
+        #[arg(
+            long,
+            default_value_t = true,
+            help = "Optimize node/npx commands to use bun runtime"
+        )]
+        optimize_bun: bool,
+
+        #[arg(long, help = "Custom home directory override")]
+        home_dir: Option<String>,
+    },
+
+    /// Windows Work IQ / Microsoft 365 enterprise integration
+    WorkIq {
+        #[command(subcommand)]
+        action: WorkIqAction,
+    },
 }
+
+#[derive(Subcommand)]
+pub enum GovernorAction {
+    /// Run continuous background watchdog daemon
+    Run {
+        #[arg(short, long, default_value_t = 60, help = "Interval between checks in seconds")]
+        interval: u64,
+    },
+    /// Perform an immediate one-shot memory trim and priority boost
+    Trim,
+}
+
+#[derive(Subcommand)]
+pub enum WorkIqAction {
+    /// Show current Work IQ / Microsoft Graph authentication & endpoints status
+    Status,
+    /// Search enterprise emails, meetings, and documents
+    Search {
+        #[arg(help = "Search query keyword")]
+        query: String,
+    },
+    /// View upcoming calendar events and agenda
+    Agenda,
+    /// View recently accessed Microsoft 365 documents
+    RecentFiles,
+}
+

@@ -2,7 +2,7 @@
 
 # Claude Code 独立安装指南 (Rust 内核单一二进制)
 
-本指南提供在不同平台上安装和配置 Rust 内核 CLI 管理工具 **Claude Code Setup** (`claude-code-setup`) 的详细步骤。
+本指南提供在不同平台上安装和配置 Rust 内核 CLI 管理工具 **Paslı Zemin** (`pasli-zemin`) 的详细步骤。
 
 > **诚实说明：** 您运行的二进制文件是纯 Rust 编写且自成一体的。但本指南中的**安装脚本并非 Rust**：`install-windows.ps1` 是 PowerShell 脚本，`install-macos.sh` 是 Bash 脚本。发布包由 `package-extension.py` (Python) 生成。GitHub 语言统计：**Rust 90.5%、Shell 3.5%、Python 3.2%、PowerShell 2.8%**（实测行数构成：Rust 91.2%，PowerShell + Bash + Python 8.8%）。
 
@@ -24,35 +24,35 @@
 通过 PowerShell 下载并运行：
 ```powershell
 # 下载 release 二进制资源
-Invoke-WebRequest -Uri "https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-windows-x86_64.exe" -OutFile "claude-code-setup.exe"
+Invoke-WebRequest -Uri "https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-windows-x86_64.exe" -OutFile "pasli-zemin.exe"
 
 # 启动自动安装与记忆库初始化
-.\claude-code-setup.exe install --hooks
+.\pasli-zemin.exe install --hooks
 ```
 
 ### Linux (x64)
 在终端中下载并赋予执行权限：
 ```bash
 # 下载二进制资源
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-linux-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-linux-x86_64
 
 # 赋予执行权限
-chmod +x claude-code-setup-linux-x86_64
+chmod +x pasli-zemin-linux-x86_64
 
 # 运行安装
-./claude-code-setup-linux-x86_64 install --hooks
+./pasli-zemin-linux-x86_64 install --hooks
 ```
 
 ### macOS (x64)
 ```bash
 # 下载二进制资源
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-macos-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-macos-x86_64
 
 # 赋予执行权限
-chmod +x claude-code-setup-macos-x86_64
+chmod +x pasli-zemin-macos-x86_64
 
 # 运行安装
-./claude-code-setup-macos-x86_64 install --hooks
+./pasli-zemin-macos-x86_64 install --hooks
 ```
 
 ---
@@ -63,20 +63,20 @@ chmod +x claude-code-setup-macos-x86_64
 
 ```bash
 # 克隆代码库
-git clone https://github.com/Ercaner1988/claude-code-setup-rustified.git
-cd claude-code-setup-rustified
+git clone https://github.com/Ercaner1988/pasli-zemin.git
+cd pasli-zemin
 
 # 构建 release 二进制
 cargo build --release
 
 # 运行安装
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 ```
 
 如需全局安装至系统 PATH：
 ```bash
 cargo install --path .
-claude-code-setup install --hooks
+pasli-zemin install --hooks
 ```
 
 ---
@@ -87,10 +87,10 @@ claude-code-setup install --hooks
 
 ```bash
 # 运行环境状态诊断
-claude-code-setup status
+pasli-zemin status
 
 # 运行诊断测试套件
-claude-code-setup test
+pasli-zemin test
 ```
 
 ---
@@ -99,10 +99,10 @@ claude-code-setup test
 
 ```bash
 # 自动修复安全审计
-claude-code-setup security-audit --fix
+pasli-zemin security-audit --fix
 
 # 在目标仓库安装提交前保护钩子
-claude-code-setup install-hooks --repo-dir .
+pasli-zemin install-hooks --repo-dir .
 ```
 
 ---

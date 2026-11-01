@@ -18,9 +18,9 @@ Son sürümden işletim sistemine uyanı indir:
 
 | İşletim sistemi | Dosya |
 |---|---|
-| Windows (32 ve 64 bit fark etmez) | `claude-code-setup-windows.mcpb` |
-| macOS | `claude-code-setup-macos.mcpb` |
-| Linux | `claude-code-setup-linux.mcpb` |
+| Windows (32 ve 64 bit fark etmez) | `pasli-zemin-windows.mcpb` |
+| macOS | `pasli-zemin-macos.mcpb` |
+| Linux | `pasli-zemin-linux.mcpb` |
 
 Eski sürümlerde Windows paketinin adında `win32` geçiyordu. Bu "32 bit"
 demek değil — `win32`, Windows'un platform kimliğidir ve 64 bit makineler
@@ -35,7 +35,7 @@ doğru dosyayı sürükle.
 Run `memory-index` first. The database lives at `~/.claude/memory_index.db`. If your notes are not in the default `~/claude_global_memory/knowledge` directory, pass `--source`:
 
 ```bash
-claude-code-setup memory-index --source path/to/notes
+pasli-zemin memory-index --source path/to/notes
 ```
 
 ## First `memory-index` / `memory-search` is slow or downloads something

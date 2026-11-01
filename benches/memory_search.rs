@@ -5,7 +5,7 @@
 use std::cell::RefCell;
 use std::collections::{HashSet, VecDeque};
 
-use claude_code_setup::memory_engine::{
+use pasli_zemin::memory_engine::{
     bytes_to_f32_vec, cosine_similarity, escape_fts5_query, f32_vec_to_bytes, init_db,
 };
 use rusqlite::{params, Connection};

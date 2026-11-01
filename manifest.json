@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.3",
-  "name": "claude-code-setup",
-  "display_name": "Claude Code Setup",
+  "name": "pasli-zemin",
+  "display_name": "Paslı Zemin",
   "version": "0.1.7",
   "description": "MCP management, semantic memory engine, and security auditing for Claude Code environment setup.",
   "author": {
@@ -10,9 +10,9 @@
   },
   "server": {
     "type": "binary",
-    "entry_point": "claude-code-setup.exe",
+    "entry_point": "pasli-zemin.exe",
     "mcp_config": {
-      "command": "${__dirname}/claude-code-setup.exe",
+      "command": "${__dirname}/pasli-zemin.exe",
       "args": [
         "--mcp-mode"
       ]
@@ -21,10 +21,10 @@
   "icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ercaner1988/claude-code-setup-rustified"
+    "url": "https://github.com/Ercaner1988/pasli-zemin"
   },
   "license": "MIT",
-  "homepage": "https://github.com/Ercaner1988/claude-code-setup-rustified",
+  "homepage": "https://github.com/Ercaner1988/pasli-zemin",
   "keywords": [
     "mcp",
     "claude-code",
@@ -66,10 +66,34 @@
     {
       "name": "test",
       "description": "Run comprehensive test suite for deployment verification"
+    },
+    {
+      "name": "governor_trim",
+      "description": "Perform an immediate RAM trim and QoS priority boost across AI tools and builders to prevent system freezing"
+    },
+    {
+      "name": "sync_all",
+      "description": "Synchronize MCP configurations and apply Bun runtime optimization across all 4 AI environments (Claude Code, Claude Desktop, OpenAI Codex, Antigravity)"
+    },
+    {
+      "name": "workiq_status",
+      "description": "Check Windows Work IQ / Microsoft 365 Graph authentication and endpoints status"
+    },
+    {
+      "name": "workiq_search",
+      "description": "Search corporate Microsoft 365 data (emails, OneDrive documents, calendar)"
+    },
+    {
+      "name": "workiq_agenda",
+      "description": "Get upcoming Microsoft 365 calendar events and meetings"
+    },
+    {
+      "name": "workiq_recent_files",
+      "description": "Get recently accessed Microsoft 365 / OneDrive documents"
     }
   ],
   "privacy_policies": [
-    "https://github.com/Ercaner1988/claude-code-setup-rustified#privacy"
+    "https://github.com/Ercaner1988/pasli-zemin#privacy"
   ],
   "user_config": {
     "home_dir": {
@@ -79,9 +103,9 @@
       "required": false
     }
   },
-  "long_description": "Claude Code Setup is a production-ready Rust CLI for managing MCP servers, semantic memory, and security compliance in your Claude Code environment. Features include: (1) Dynamic MCP management with support for three config targets (claude-code ~/.claude.json, project ./.mcp.json, claude-desktop); (2) Semantic memory engine with FastEmbed multilingual embeddings and automatic knowledge graph construction; (3) Security auditing with token scanning, permission enforcement, and pre-commit hook installation; (4) Real-time diagnostics and test suite for deployment verification.",
-  "documentation": "https://github.com/Ercaner1988/claude-code-setup-rustified/blob/main/README.md",
-  "support": "https://github.com/Ercaner1988/claude-code-setup-rustified/issues",
+  "long_description": "Paslı Zemin is a production-ready Rust CLI for managing MCP servers, semantic memory, and security compliance in your Claude Code environment. Features include: (1) Dynamic MCP management with support for three config targets (claude-code ~/.claude.json, project ./.mcp.json, claude-desktop); (2) Semantic memory engine with FastEmbed multilingual embeddings and automatic knowledge graph construction; (3) Security auditing with token scanning, permission enforcement, and pre-commit hook installation; (4) Real-time diagnostics and test suite for deployment verification.",
+  "documentation": "https://github.com/Ercaner1988/pasli-zemin/blob/main/README.md",
+  "support": "https://github.com/Ercaner1988/pasli-zemin/issues",
   "tools_generated": false,
   "compatibility": {
     "claude_desktop": ">=0.10.0",

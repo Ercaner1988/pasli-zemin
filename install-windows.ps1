@@ -1,21 +1,21 @@
-# Claude Code Setup - Windows Installer
+# Paslı Zemin - Windows Installer
 # Downloads and installs the latest release for Windows x64
 # Usage: powershell -ExecutionPolicy Bypass -File install-windows.ps1
 
 param(
-    [string]$InstallDir = "$env:LOCALAPPDATA\Programs\ClaudeCodeSetup",
+    [string]$InstallDir = "$env:LOCALAPPDATA\Programs\PasliZemin",
     [switch]$SkipConfig
 )
 
 $ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = 'Stop'
 
-Write-Host "🚀 Claude Code Setup - Windows Installer" -ForegroundColor Cyan
+Write-Host "🚀 Paslı Zemin - Windows Installer" -ForegroundColor Cyan
 Write-Host "📦 Installing to: $InstallDir" -ForegroundColor Gray
 
 # Fetch latest release
 Write-Host "📥 Fetching latest release..." -ForegroundColor Yellow
-$releases = Invoke-RestMethod -Uri "https://api.github.com/repos/Ercaner1988/claude-code-setup-rustified/releases" -Headers @{"Accept"="application/vnd.github.v3+json"}
+$releases = Invoke-RestMethod -Uri "https://api.github.com/repos/Ercaner1988/pasli-zemin/releases" -Headers @{"Accept"="application/vnd.github.v3+json"}
 $latest = $releases[0]
 $latestTag = $latest.tag_name
 Write-Host "   Found: $latestTag" -ForegroundColor Green
@@ -36,7 +36,7 @@ if (-not (Test-Path $InstallDir)) {
 }
 
 # Download binary
-$exePath = Join-Path $InstallDir "claude-code-setup.exe"
+$exePath = Join-Path $InstallDir "pasli-zemin.exe"
 Write-Host "⬇️  Downloading binary..." -ForegroundColor Yellow
 Invoke-WebRequest -Uri $winAsset.browser_download_url -OutFile $exePath -UseBasicParsing
 Write-Host "✅ Downloaded: $exePath" -ForegroundColor Green
@@ -65,7 +65,7 @@ Write-Host "✅ Installation complete!" -ForegroundColor Green
 Write-Host ""
 Write-Host "📝 Next steps:" -ForegroundColor Cyan
 Write-Host "   1. Restart PowerShell or run: `$profile | % { . `$_ }" -ForegroundColor Gray
-Write-Host "   2. Verify: claude-code-setup --version" -ForegroundColor Gray
-Write-Host "   3. Configure MCP: claude-code-setup mcp-list" -ForegroundColor Gray
+Write-Host "   2. Verify: pasli-zemin --version" -ForegroundColor Gray
+Write-Host "   3. Configure MCP: pasli-zemin mcp-list" -ForegroundColor Gray
 Write-Host ""
-Write-Host "📚 Docs: https://github.com/Ercaner1988/claude-code-setup-rustified" -ForegroundColor Cyan
+Write-Host "📚 Docs: https://github.com/Ercaner1988/pasli-zemin" -ForegroundColor Cyan

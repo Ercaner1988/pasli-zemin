@@ -1,7 +1,7 @@
 //! MCP sunucusunun JSON-RPC sicak yolu: istek ayristirma, yonlendirme ve
 //! yanit serilestirme (handle_request) ile arac -> CLI arguman cevrimi.
 
-use claude_code_setup::mcp_server::{handle_request, tool_to_cli_args, JsonRpcRequest};
+use pasli_zemin::mcp_server::{handle_request, tool_to_cli_args, JsonRpcRequest};
 use serde_json::json;
 
 fn main() {

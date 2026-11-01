@@ -23,19 +23,19 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            asset: claude-code-setup-linux-x86_64
-            mcpb: claude-code-setup-linux.mcpb
+            asset: pasli-zemin-linux-x86_64
+            mcpb: pasli-zemin-linux.mcpb
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            asset: claude-code-setup-windows-x86_64.exe
-            mcpb: claude-code-setup-windows.mcpb
+            asset: pasli-zemin-windows-x86_64.exe
+            mcpb: pasli-zemin-windows.mcpb
           # Universal ikili: x86_64 + arm64 tek dosyada (lipo). Yalnizca x86_64
           # yayinlamak Apple Silicon'da Rosetta 2'yi sart kosuyordu; macOS
           # Rosetta'yi varsayilan olarak kurmuyor.
           - os: macos-latest
             target: x86_64-apple-darwin,aarch64-apple-darwin
-            asset: claude-code-setup-macos-universal
-            mcpb: claude-code-setup-macos.mcpb
+            asset: pasli-zemin-macos-universal
+            mcpb: pasli-zemin-macos.mcpb
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -64,18 +64,18 @@ jobs:
         run: |
           cargo build --release --target x86_64-apple-darwin
           cargo build --release --target aarch64-apple-darwin
-          lipo -create -output ${{ matrix.asset }}             target/x86_64-apple-darwin/release/claude-code-setup             target/aarch64-apple-darwin/release/claude-code-setup
+          lipo -create -output ${{ matrix.asset }}             target/x86_64-apple-darwin/release/pasli-zemin             target/aarch64-apple-darwin/release/pasli-zemin
           archs=$(lipo -archs ${{ matrix.asset }})
           echo "dilimler: $archs"
           [[ "$archs" == *x86_64* && "$archs" == *arm64* ]] || { echo "universal degil: $archs"; exit 1; }
 
       - name: Stage asset (Linux)
         if: runner.os == 'Linux'
-        run: cp target/${{ matrix.target }}/release/claude-code-setup ${{ matrix.asset }}
+        run: cp target/${{ matrix.target }}/release/pasli-zemin ${{ matrix.asset }}
 
       - name: Stage asset (Windows)
         if: runner.os == 'Windows'
-        run: Copy-Item target/${{ matrix.target }}/release/claude-code-setup.exe ${{ matrix.asset }}
+        run: Copy-Item target/${{ matrix.target }}/release/pasli-zemin.exe ${{ matrix.asset }}
 
       - name: Validate manifest against official MCPB schema
         run: npx --yes @anthropic-ai/mcpb@latest validate manifest.json

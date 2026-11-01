@@ -22,7 +22,7 @@ These scripts handle:
 
 Then:
 1. Open Claude Code Desktop → Settings → Extensions
-2. Find "claude-code-setup" in the list
+2. Find "pasli-zemin" in the list
 3. Click "Configure" to see available tools
 
 ---
@@ -36,17 +36,17 @@ Then:
    ```
 3. **Create extension folder:**
    ```
-   $APPDATA\Claude\Claude Extensions\ercaner1988.claude-code-setup
+   $APPDATA\Claude\Claude Extensions\ercaner1988.pasli-zemin
    ```
 4. **Copy files:**
    - `manifest.json` ← Deploy this
-   - `target/release/claude-code-setup.exe` (or the binary for your OS)
+   - `target/release/pasli-zemin.exe` (or the binary for your OS)
    - `README.md`
    - `LICENSE`
 5. **Register:**
    - Claude Code Desktop → Settings → Extensions
    - "Select extension" → "Browse extensions folder"
-   - Choose the `ercaner1988.claude-code-setup` folder
+   - Choose the `ercaner1988.pasli-zemin` folder
    - Click "Install unpacked extension"
 6. **Restart** Claude Code Desktop
 
@@ -65,18 +65,18 @@ Then:
 ## Deploy from Source
 
 ```bash
-git clone https://github.com/Ercaner1988/claude-code-setup-rustified.git
-cd claude-code-setup-rustified
+git clone https://github.com/Ercaner1988/pasli-zemin.git
+cd pasli-zemin
 cargo build --release
 
 # Verify prerequisites, create the memory knowledge base skeleton and .env
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # Verify the environment
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
-The binary is self-contained; copy `target/release/claude-code-setup` (`.exe` on Windows) anywhere on your PATH for convenient access.
+The binary is self-contained; copy `target/release/pasli-zemin` (`.exe` on Windows) anywhere on your PATH for convenient access.
 
 The embedding model (~100 MB) is downloaded once on the first `memory-index` or `memory-search` run and cached locally afterwards.
 
@@ -92,23 +92,23 @@ Nothing under `~/.claude/` is ever overwritten by `install`.
 
 ```bash
 # Manage MCP servers (Claude Code user config by default)
-claude-code-setup mcp-list
-claude-code-setup mcp-set my-server --command npx --arg "-y" --arg "some-mcp" --env KEY=VALUE
-claude-code-setup mcp-disable my-server
-claude-code-setup mcp-unset my-server --remove          # deletion requires --remove
+pasli-zemin mcp-list
+pasli-zemin mcp-set my-server --command npx --arg "-y" --arg "some-mcp" --env KEY=VALUE
+pasli-zemin mcp-disable my-server
+pasli-zemin mcp-unset my-server --remove          # deletion requires --remove
 
 # Project-scoped servers (./.mcp.json) or Claude Desktop
-claude-code-setup mcp-list --target project
-claude-code-setup mcp-list --target claude-desktop
+pasli-zemin mcp-list --target project
+pasli-zemin mcp-list --target claude-desktop
 
 # Memory
-claude-code-setup memory-note "My finding" --body "Details..."
-claude-code-setup memory-index
-claude-code-setup memory-search "how do hooks work"
-claude-code-setup memory-related my-finding.md
+pasli-zemin memory-note "My finding" --body "Details..."
+pasli-zemin memory-index
+pasli-zemin memory-search "how do hooks work"
+pasli-zemin memory-related my-finding.md
 
 # Security
-claude-code-setup security-audit --fix
+pasli-zemin security-audit --fix
 ```
 
 ## Updating

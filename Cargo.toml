@@ -1,19 +1,23 @@
 [package]
-name = "claude-code-setup"
-version = "0.1.7"
+name = "pasli-zemin"
+version = "0.2.0"
 edition = "2021"
 authors = ["Ercan ER <ercaner1988@gmail.com>"]
-description = "Bagimsiz Rust CLI: Claude Code ortam denetimi, dinamik MCP yonetimi, semantik + graf hafiza motoru"
+description = "Pasli Zemin: 4 AI ortami (Claude Code, Claude Desktop, OpenAI Codex, Google Antigravity) icin donanim bekcisi (QoS/RAM trim), Windows Work IQ ve Bun MCP yonetimi"
 license = "MIT"
-repository = "https://github.com/Ercaner1988/claude-code-setup-rustified"
+repository = "https://github.com/Ercaner1988/pasli-zemin"
 
 [lib]
-name = "claude_code_setup"
+name = "pasli_zemin"
 path = "src/lib.rs"
 
 [[bin]]
-name = "claude-code-setup"
+name = "pasli-zemin"
 path = "src/main.rs"
+
+[[bin]]
+name = "claude-code-setup"
+path = "src/bin/claude_code_setup.rs"
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
@@ -27,6 +31,17 @@ fastembed = { version = "4.9", default-features = false, features = ["hf-hub-rus
 regex = "1.10"
 tokio = { version = "1", features = ["full"] }
 uuid = { version = "1.6", features = ["v4", "serde"] }
+toml = "0.8"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = [
+    "Win32_Foundation",
+    "Win32_System_Threading",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_Security",
+] }
 
 [dev-dependencies]
 divan = { version = "5.0.2", package = "codspeed-divan-compat" }

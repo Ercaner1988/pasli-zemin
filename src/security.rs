@@ -10,7 +10,7 @@ use crate::installer::get_home_dir;
 use crate::mcp::{resolve_config_path, McpTarget};
 
 const PRE_COMMIT_HOOK_CONTENT: &str = r#"#!/usr/bin/env bash
-# Rust-generated pre-commit security hook for Claude Code setup
+# Rust-generated pre-commit security hook (installed by pasli-zemin)
 set -e
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")

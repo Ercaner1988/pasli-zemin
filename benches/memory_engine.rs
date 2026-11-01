@@ -1,7 +1,7 @@
 //! Hafiza motorunun sicak yollari: gomme (embedding) matematigi, blob
 //! donusumleri, icerik parcalama ve markdown/FTS5 metin isleme.
 
-use claude_code_setup::memory_engine::{
+use pasli_zemin::memory_engine::{
     bytes_to_f32_vec, chunk_content, cosine_similarity, escape_fts5_query, extract_wikilinks,
     f32_vec_to_bytes, mean_pool_embeddings,
 };

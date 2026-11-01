@@ -36,12 +36,12 @@ fn check_cmd(cmd: &str) -> bool {
 
 const KNOWLEDGE_README: &str = r#"# Knowledge Base
 
-Bu dizin, `claude-code-setup` hafıza motorunun indekslediği markdown notlarını tutar.
+Bu dizin, `pasli-zemin` hafıza motorunun indekslediği markdown notlarını tutar.
 
-- Not eklemek için: `claude-code-setup memory-note "Başlık" --body "İçerik"`
-- Notları indekslemek için: `claude-code-setup memory-index`
-- Aramak için: `claude-code-setup memory-search "sorgu"`
-- İlişkili notlar: `claude-code-setup memory-related <dosya.md>`
+- Not eklemek için: `pasli-zemin memory-note "Başlık" --body "İçerik"`
+- Notları indekslemek için: `pasli-zemin memory-index`
+- Aramak için: `pasli-zemin memory-search "sorgu"`
+- İlişkili notlar: `pasli-zemin memory-related <dosya.md>`
 
 Notlar arasında `[[Diğer Not]]` biçiminde wikilink kullanabilirsiniz; graf kenarına dönüşür.
 "#;

@@ -2,7 +2,7 @@
 
 # Claude Code Bağımsız Kurulum Kılavuzu (Rust Çekirdekli Tek İkili)
 
-Bu kılavuz, bilgisayarında **Rust veya teknik araçlar kurulu olmayan kullanıcılar dahil** herkesin **Claude Code Setup** (`claude-code-setup`) aracını saniyeler içinde kurup çalıştırabilmesi için adım adım hazırlanmıştır.
+Bu kılavuz, bilgisayarında **Rust veya teknik araçlar kurulu olmayan kullanıcılar dahil** herkesin **Paslı Zemin** (`pasli-zemin`) aracını saniyeler içinde kurup çalıştırabilmesi için adım adım hazırlanmıştır.
 
 > **Dürüstlük notu:** Çalıştırılan ikili dosya saf Rust'tır ve kendi kendine yeterlidir. Ancak bu kılavuzdaki **kurucular Rust değildir**: `install-windows.ps1` bir PowerShell betiği, `install-macos.sh` bir Bash betiğidir. Sürüm paketleri de `package-extension.py` (Python) ile üretilir. GitHub dil istatistiği: **%90,5 Rust, %3,5 Shell, %3,2 Python, %2,8 PowerShell** (ölçülen satır payı: %91,2 Rust, %8,8 PowerShell + Bash + Python).
 
@@ -16,10 +16,10 @@ Aracı kullanmanın iki yolu var. İkisi birbirinin alternatifi — ikisini de k
 
 Tek dosya indir, sürükle, bitti. Rust, terminal, PATH derdi yok.
 
-1. [Son sürüm sayfasından](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest) işletim sistemine uyan paketi indir:
-   - **Windows** → `claude-code-setup-windows.mcpb`
-   - **macOS** → `claude-code-setup-macos.mcpb`
-   - **Linux** → `claude-code-setup-linux.mcpb`
+1. [Son sürüm sayfasından](https://github.com/Ercaner1988/pasli-zemin/releases/latest) işletim sistemine uyan paketi indir:
+   - **Windows** → `pasli-zemin-windows.mcpb`
+   - **macOS** → `pasli-zemin-macos.mcpb`
+   - **Linux** → `pasli-zemin-linux.mcpb`
 2. Claude Desktop → **Settings → Extensions** ekranını aç.
 3. İndirdiğin `.mcpb` dosyasını bu ekrana **sürükleyip bırak**.
 4. Claude Desktop eklentiyi kurar ve 8 aracı kullanıma açar.
@@ -29,16 +29,16 @@ Tek dosya indir, sürükle, bitti. Rust, terminal, PATH derdi yok.
 
 ### Yol 2 — Komut satırı aracı (CLI)
 
-Terminalden `claude-code-setup ...` komutlarını çalıştırmak istiyorsan.
+Terminalden `pasli-zemin ...` komutlarını çalıştırmak istiyorsan.
 
 #### Windows (PowerShell)
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 #### macOS / Linux (Terminal)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
 **Kurucunun yaptıkları:**
@@ -51,8 +51,8 @@ Yol 1'i kullan — ikisi ayrı şeylerdir.
 
 **Doğrulama** (yeni bir terminal penceresi aç, PATH değişikliği eskilerine yansımaz):
 ```bash
-claude-code-setup --version
-claude-code-setup status
+pasli-zemin --version
+pasli-zemin status
 ```
 
 ---
@@ -70,11 +70,11 @@ Installerları kullanmak istemiyorsanız:
    C:\Users\{username}\AppData\Roaming\Claude\Claude Extensions
    ```
 
-4. **Yeni klasör oluştur:** `ercaner1988.claude-code-setup`
+4. **Yeni klasör oluştur:** `ercaner1988.pasli-zemin`
 
 5. **Dosyaları indir ve kopyala:**
    - [manifest.json](manifest.json) (repo'dan)
-   - [Release binary](https://github.com/Ercaner1988/claude-code-setup-rustified/releases) (.exe / macos / linux)
+   - [Release binary](https://github.com/Ercaner1988/pasli-zemin/releases) (.exe / macos / linux)
    - [README.md](README.md)
    - [LICENSE](LICENSE)
 
@@ -82,7 +82,7 @@ Installerları kullanmak istemiyorsanız:
 
 7. **Claude Code'u restart et** (tamamen kapat & aç)
 
-8. **Settings → Extensions** → "claude-code-setup" kontrol et
+8. **Settings → Extensions** → "pasli-zemin" kontrol et
 
 ---
 
@@ -139,7 +139,7 @@ Bilgisayarınıza Rust kurmak isterseniz:
    - Aşağıdaki komutu kopyalayın, PowerShell penceresine **sağ tıklayarak yapıştırın** ve **Enter**'a basın:
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-windows-x86_64.exe" -OutFile "claude-code-setup.exe"; .\claude-code-setup.exe install --hooks
+Invoke-WebRequest -Uri "https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-windows-x86_64.exe" -OutFile "pasli-zemin.exe"; .\pasli-zemin.exe install --hooks
 ```
 
 3. **Tamamlandı!**
@@ -156,7 +156,7 @@ Invoke-WebRequest -Uri "https://github.com/Ercaner1988/claude-code-setup-rustifi
 2. **Kurulum Komutunu Yapıştırın ve Çalıştırın:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
 Kurucu Mac'inin Intel mi Apple Silicon mı olduğuna bakmaz, gerek de yok:
@@ -166,7 +166,7 @@ Güvenlik kancasını bir **git deposunun kök dizininde** kur — kanca depoya
 özeldir, ev dizininde çalıştırınca atlanır:
 
 ```bash
-cd ~/depom && claude-code-setup install-hooks
+cd ~/depom && pasli-zemin install-hooks
 ```
 
 ---
@@ -179,7 +179,7 @@ cd ~/depom && claude-code-setup install-hooks
 2. **Kurulum Komutunu Yapıştırın ve Çalıştırın:**
 
 ```bash
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-linux-x86_64 && chmod +x claude-code-setup-linux-x86_64 && ./claude-code-setup-linux-x86_64 install --hooks
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-linux-x86_64 && chmod +x pasli-zemin-linux-x86_64 && ./pasli-zemin-linux-x86_64 install --hooks
 ```
 
 ---
@@ -188,10 +188,10 @@ curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/lat
 
 ```bash
 # Ortam tanılamasını çalıştırın
-claude-code-setup status
+pasli-zemin status
 
 # Tanı doğrulama testlerini koşturun
-claude-code-setup test
+pasli-zemin test
 ```
 
 ---
@@ -200,10 +200,10 @@ claude-code-setup test
 
 ```bash
 # Otomatik düzeltmeli güvenlik denetimi
-claude-code-setup security-audit --fix
+pasli-zemin security-audit --fix
 
 # Pre-commit kancasını hedef repoya kurun
-claude-code-setup install-hooks --repo-dir .
+pasli-zemin install-hooks --repo-dir .
 ```
 
 ---

@@ -46,7 +46,7 @@ def main() -> int:
 
     manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
     platform = platform_of(binary)
-    entry = "claude-code-setup.exe" if platform == "win32" else "claude-code-setup"
+    entry = "pasli-zemin.exe" if platform == "win32" else "pasli-zemin"
 
     manifest["server"]["entry_point"] = entry
     manifest["server"]["mcp_config"]["command"] = "${__dirname}/" + entry

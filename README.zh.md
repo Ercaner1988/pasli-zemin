@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
 
-用于管理 **Claude Code** 环境的本地部署、安全审计与记忆引擎 (`claude-code-setup`)。运行时是单一的 Rust 二进制文件；运行它无需在机器上安装 Rust、Python 或 Node。
+用于管理 **Claude Code** 环境的本地部署、安全审计与记忆引擎 (`pasli-zemin`)。运行时是单一的 Rust 二进制文件；运行它无需在机器上安装 Rust、Python 或 Node。
 
 ### 诚实说明：本仓库并非 100% Rust
 
@@ -55,7 +55,7 @@ GitHub 语言统计与实测代码库构成 (2026-09-02)：**Rust 2891 行 / 非
 ## 🏗️ 2. 架构与模块
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # Rust 依赖与包定义 (v0.1.6)
 ├── manifest.json               # Claude Desktop 扩展清单 (8 个 MCP 工具)
 ├── icon.png                    # 扩展图标
@@ -99,25 +99,25 @@ claude-code-setup-rustified/
 
 存在两种不同的安装方式，请先确定所需。
 
-**Claude Desktop 扩展 (推荐)** — 自[最新发布](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest)下载与操作系统相符的包，拖入 Claude Desktop → Settings → Extensions 界面：
+**Claude Desktop 扩展 (推荐)** — 自[最新发布](https://github.com/Ercaner1988/pasli-zemin/releases/latest)下载与操作系统相符的包，拖入 Claude Desktop → Settings → Extensions 界面：
 
 | 操作系统 | 文件 | 约计大小 |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 MB |
-| macOS | `claude-code-setup-macos.mcpb` | 10 MB |
-| Linux | `claude-code-setup-linux.mcpb` | 12 MB |
+| Windows | `pasli-zemin-windows.mcpb` | 9 MB |
+| macOS | `pasli-zemin-macos.mcpb` | 10 MB |
+| Linux | `pasli-zemin-linux.mcpb` | 12 MB |
 
 **命令行工具** — 若希望自终端使用：
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-这两个安装脚本分别是 PowerShell 与 Bash 脚本 (并非 Rust)；它们将下载的二进制文件安装至用户目录并加入 PATH (无需管理员权限)。它们**不会注册**扩展 — 扩展请走上文的 `.mcpb` 路径。验证时可在新终端中运行 `claude-code-setup status`。
+这两个安装脚本分别是 PowerShell 与 Bash 脚本 (并非 Rust)；它们将下载的二进制文件安装至用户目录并加入 PATH (无需管理员权限)。它们**不会注册**扩展 — 扩展请走上文的 `.mcpb` 路径。验证时可在新终端中运行 `pasli-zemin status`。
 
 详细安装步骤参见 [INSTALLATION.zh.md](INSTALLATION.zh.md)
 
@@ -134,17 +134,17 @@ curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rusti
 cargo build --release
 
 # 生成的二进制文件：
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### 自动安装与环境诊断
 ```bash
 # 检查前置条件并建立记忆骨架
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # 系统与环境诊断状态
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -177,23 +177,23 @@ cargo build --release
 #### 按目标管理 MCP 服务器
 ```bash
 # 在项目层级 (.mcp.json) 定义 MCP 服务器
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # 停用 Claude Desktop 配置中的服务器
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # 彻底移除服务器 (--remove 旗标为强制)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### 添加记忆笔记与 RRF 混合检索
 ```bash
-./target/release/claude-code-setup memory-note "架构决策" --body "运行时向 Rust 原生二进制的迁移已完成。"
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "Rust 架构" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related mimari-kararlar.md
+./target/release/pasli-zemin memory-note "架构决策" --body "运行时向 Rust 原生二进制的迁移已完成。"
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "Rust 架构" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related mimari-kararlar.md
 ```
 
 ---

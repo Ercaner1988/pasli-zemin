@@ -1,8 +1,8 @@
 //! Guvenlik denetiminin sicak yollari: gizli anahtar deseni taramasi ve
 //! dal adi normalizasyonu.
 
-use claude_code_setup::branch_manager::{is_protected_branch, sanitize_description};
-use claude_code_setup::security::find_secrets;
+use pasli_zemin::branch_manager::{is_protected_branch, sanitize_description};
+use pasli_zemin::security::find_secrets;
 
 fn main() {
     divan::main();

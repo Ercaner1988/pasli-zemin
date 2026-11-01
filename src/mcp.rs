@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 
 use crate::installer::get_home_dir;
 
-/// MCP yapılandırma hedefi: Claude Code (kullanıcı), proje veya Claude Desktop.
+/// MCP yapılandırma hedefi: 4 AI arayüzü ve yerel proje.
 #[derive(Copy, Clone, Debug, PartialEq, Eq, ValueEnum)]
 #[value(rename_all = "kebab-case")]
 pub enum McpTarget {
@@ -17,6 +17,10 @@ pub enum McpTarget {
     Project,
     /// Claude Desktop config (claude_desktop_config.json)
     ClaudeDesktop,
+    /// Google Antigravity config (~/.gemini/config/mcp_config.json)
+    Antigravity,
+    /// OpenAI Codex config (~/.codex/config.toml)
+    Codex,
 }
 
 pub fn resolve_config_path(target: McpTarget, home_override: Option<String>) -> Result<PathBuf> {
@@ -47,6 +51,14 @@ pub fn resolve_config_path(target: McpTarget, home_override: Option<String>) -> 
             }
             Ok(primary)
         }
+        McpTarget::Antigravity => {
+            let home = get_home_dir(home_override)?;
+            Ok(home.join(".gemini").join("config").join("mcp_config.json"))
+        }
+        McpTarget::Codex => {
+            let home = get_home_dir(home_override)?;
+            Ok(home.join(".codex").join("config.toml"))
+        }
     }
 }
 
@@ -56,6 +68,15 @@ fn read_json_value(path: &Path) -> Result<Value> {
     }
     let content = fs::read_to_string(path)
         .with_context(|| format!("Failed to read MCP config from {:?}", path))?;
+    if path.extension().and_then(|s| s.to_str()) == Some("toml") {
+        let toml_val: toml::Value = toml::from_str(&content)
+            .with_context(|| format!("Failed to parse TOML from {:?}", path))?;
+        let mut json_val: Value = serde_json::to_value(toml_val)?;
+        if let Some(mcp) = json_val.get("mcp_servers").cloned() {
+            json_val["mcpServers"] = mcp;
+        }
+        return Ok(json_val);
+    }
     let val: Value = serde_json::from_str(&content)
         .with_context(|| format!("Failed to parse JSON from {:?}", path))?;
     Ok(val)

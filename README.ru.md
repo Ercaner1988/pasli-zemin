@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
 
-Локальный инструмент развёртывания, аудита безопасности и движок памяти (`claude-code-setup`), разработанный для управления средой **Claude Code**. Во время работы это единый бинарный файл на Rust; для его запуска не требуется установленный Rust, Python или Node.
+Локальный инструмент развёртывания, аудита безопасности и движок памяти (`pasli-zemin`), разработанный для управления средой **Claude Code**. Во время работы это единый бинарный файл на Rust; для его запуска не требуется установленный Rust, Python или Node.
 
 ### Замечание о честности: этот репозиторий не на 100% написан на Rust
 
@@ -55,7 +55,7 @@
 ## 🏗️ 2. Архитектура и Модули
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # Зависимости Rust и определения пакета (v0.1.6)
 ├── manifest.json               # Манифест расширения Claude Desktop (8 инструментов MCP)
 ├── icon.png                    # Значок расширения
@@ -99,25 +99,25 @@ claude-code-setup-rustified/
 
 Существует две разные установки; решите, какая вам нужна.
 
-**Расширение Claude Desktop (рекомендуется)** — загрузите пакет, соответствующий вашей операционной системе, из [последнего выпуска](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest) и перетащите его в Claude Desktop → Settings → Extensions:
+**Расширение Claude Desktop (рекомендуется)** — загрузите пакет, соответствующий вашей операционной системе, из [последнего выпуска](https://github.com/Ercaner1988/pasli-zemin/releases/latest) и перетащите его в Claude Desktop → Settings → Extensions:
 
 | Операционная система | Файл | Примерный размер |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 МБ |
-| macOS | `claude-code-setup-macos.mcpb` | 10 МБ |
-| Linux | `claude-code-setup-linux.mcpb` | 12 МБ |
+| Windows | `pasli-zemin-windows.mcpb` | 9 МБ |
+| macOS | `pasli-zemin-macos.mcpb` | 10 МБ |
+| Linux | `pasli-zemin-linux.mcpb` | 12 МБ |
 
 **Инструмент командной строки** — если вы хотите пользоваться им из терминала:
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-Эти установщики являются сценариями PowerShell и Bash (не Rust); они помещают загруженный бинарный файл в каталог пользователя и добавляют его в PATH (права администратора не нужны). Расширение они **не регистрируют** — для расширения используйте путь `.mcpb` выше. Для проверки выполните `claude-code-setup status` в новом терминале.
+Эти установщики являются сценариями PowerShell и Bash (не Rust); они помещают загруженный бинарный файл в каталог пользователя и добавляют его в PATH (права администратора не нужны). Расширение они **не регистрируют** — для расширения используйте путь `.mcpb` выше. Для проверки выполните `pasli-zemin status` в новом терминале.
 
 Подробную установку см. в [INSTALLATION.ru.md](INSTALLATION.ru.md)
 
@@ -134,17 +134,17 @@ curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rusti
 cargo build --release
 
 # Полученный бинарный файл:
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### Автоматическая Установка и Диагностика Среды
 ```bash
 # Проверяет предварительные условия, создаёт каркас памяти
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # Диагностическое состояние системы и среды
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -177,23 +177,23 @@ cargo build --release
 #### Управление Серверами MCP по Целям
 ```bash
 # Определить сервер MCP на уровне проекта (.mcp.json)
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # Отключить сервер в конфигурации Claude Desktop
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # Полностью убрать сервер (флаг --remove обязателен)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### Добавление Заметки в Память и Гибридный Поиск RRF
 ```bash
-./target/release/claude-code-setup memory-note "Архитектурные Решения" --body "Перенос среды выполнения в нативный бинарный файл Rust завершён."
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "архитектура Rust" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related mimari-kararlar.md
+./target/release/pasli-zemin memory-note "Архитектурные Решения" --body "Перенос среды выполнения в нативный бинарный файл Rust завершён."
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "архитектура Rust" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related mimari-kararlar.md
 ```
 
 ---

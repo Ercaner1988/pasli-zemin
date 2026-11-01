@@ -2,7 +2,7 @@
 
 # Руководство по Установке Claude Code (Ядро на Rust, единый бинарный файл)
 
-Данное руководство содержит пошаговые инструкции по установке и настройке CLI-инструмента **Claude Code Setup** (`claude-code-setup`) с ядром на Rust для различных операционных систем.
+Данное руководство содержит пошаговые инструкции по установке и настройке CLI-инструмента **Paslı Zemin** (`pasli-zemin`) с ядром на Rust для различных операционных систем.
 
 > **Замечание о честности:** Запускаемый бинарный файл написан на чистом Rust и является самодостаточным. Однако **установщики в этом руководстве написаны не на Rust**: `install-windows.ps1` — это сценарий PowerShell, а `install-macos.sh` — сценарий Bash. Пакеты выпуска создаются с помощью `package-extension.py` (Python). Статистика языков GitHub: **90,5% Rust, 3,5% Shell, 3,2% Python, 2,8% PowerShell** (измеренное соотношение строк: 91,2% Rust, 8,8% PowerShell + Bash + Python).
 
@@ -24,34 +24,34 @@
 Скачайте и запустите через PowerShell:
 ```powershell
 # Скачать бинарный файл релиза
-Invoke-WebRequest -Uri "https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-windows-x86_64.exe" -OutFile "claude-code-setup.exe"
+Invoke-WebRequest -Uri "https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-windows-x86_64.exe" -OutFile "pasli-zemin.exe"
 
 # Запустить автоматическую установку
-.\claude-code-setup.exe install --hooks
+.\pasli-zemin.exe install --hooks
 ```
 
 ### Linux (x64)
 ```bash
 # Скачать бинарный файл
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-linux-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-linux-x86_64
 
 # Предоставить права на выполнение
-chmod +x claude-code-setup-linux-x86_64
+chmod +x pasli-zemin-linux-x86_64
 
 # Запустить установку
-./claude-code-setup-linux-x86_64 install --hooks
+./pasli-zemin-linux-x86_64 install --hooks
 ```
 
 ### macOS (x64)
 ```bash
 # Скачать бинарный файл
-curl -LO https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest/download/claude-code-setup-macos-x86_64
+curl -LO https://github.com/Ercaner1988/pasli-zemin/releases/latest/download/pasli-zemin-macos-x86_64
 
 # Предоставить права на выполнение
-chmod +x claude-code-setup-macos-x86_64
+chmod +x pasli-zemin-macos-x86_64
 
 # Запустить установку
-./claude-code-setup-macos-x86_64 install --hooks
+./pasli-zemin-macos-x86_64 install --hooks
 ```
 
 ---
@@ -62,20 +62,20 @@ chmod +x claude-code-setup-macos-x86_64
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/Ercaner1988/claude-code-setup-rustified.git
-cd claude-code-setup-rustified
+git clone https://github.com/Ercaner1988/pasli-zemin.git
+cd pasli-zemin
 
 # Собрать бинарный файл релиза
 cargo build --release
 
 # Запустить установку
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 ```
 
 Для глобальной установки в систему:
 ```bash
 cargo install --path .
-claude-code-setup install --hooks
+pasli-zemin install --hooks
 ```
 
 ---
@@ -84,10 +84,10 @@ claude-code-setup install --hooks
 
 ```bash
 # Диагностика состояния среды
-claude-code-setup status
+pasli-zemin status
 
 # Запуск диагностических тестов
-claude-code-setup test
+pasli-zemin test
 ```
 
 ---
@@ -96,10 +96,10 @@ claude-code-setup test
 
 ```bash
 # Аудит безопасности с авто-исправлением
-claude-code-setup security-audit --fix
+pasli-zemin security-audit --fix
 
 # Установка хука pre-commit в репозиторий
-claude-code-setup install-hooks --repo-dir .
+pasli-zemin install-hooks --repo-dir .
 ```
 
 ---

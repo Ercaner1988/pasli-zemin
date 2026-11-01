@@ -5,9 +5,9 @@
 [![Rust](https://img.shields.io/badge/Rust%20core-%2591-orange.svg)](https://www.rust-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-30%20Passed-green.svg)]()
-[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/Ercaner1988/claude-code-setup-rustified?utm_source=badge)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/Ercaner1988/pasli-zemin?utm_source=badge)
 
-A local deployment, security auditing, and memory engine (`claude-code-setup`) for managing the **Claude Code** environment. The runtime is a single Rust binary; running it requires no Rust, Python, or Node installation on the host machine.
+A local deployment, security auditing, and memory engine (`pasli-zemin`) for managing the **Claude Code** environment. The runtime is a single Rust binary; running it requires no Rust, Python, or Node installation on the host machine.
 
 ### Honesty note: this repository is not 100% Rust
 
@@ -56,7 +56,7 @@ Accurate summary: **the runtime binary is pure Rust; installation, packaging, an
 ## 🏗️ 2. Architecture and Modules
 
 ```
-claude-code-setup-rustified/
+pasli-zemin/
 ├── Cargo.toml                  # Rust dependencies and package definitions (v0.1.6)
 ├── manifest.json               # Claude Desktop extension manifest (8 MCP tools)
 ├── icon.png                    # Extension icon
@@ -100,25 +100,25 @@ claude-code-setup-rustified/
 
 There are two distinct installations; decide which one you want.
 
-**Claude Desktop extension (recommended)** — download the package matching your operating system from the [latest release](https://github.com/Ercaner1988/claude-code-setup-rustified/releases/latest) and drag it into Claude Desktop → Settings → Extensions:
+**Claude Desktop extension (recommended)** — download the package matching your operating system from the [latest release](https://github.com/Ercaner1988/pasli-zemin/releases/latest) and drag it into Claude Desktop → Settings → Extensions:
 
 | Operating system | File | Approx. size |
 |---|---|---|
-| Windows | `claude-code-setup-windows.mcpb` | 9 MB |
-| macOS | `claude-code-setup-macos.mcpb` | 10 MB |
-| Linux | `claude-code-setup-linux.mcpb` | 12 MB |
+| Windows | `pasli-zemin-windows.mcpb` | 9 MB |
+| macOS | `pasli-zemin-macos.mcpb` | 10 MB |
+| Linux | `pasli-zemin-linux.mcpb` | 12 MB |
 
 **Command-line tool** — if you want to use it from a terminal:
 
 ```powershell
-irm https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-windows.ps1 | iex
+irm https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-windows.ps1 | iex
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ercaner1988/claude-code-setup-rustified/main/install-macos.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Ercaner1988/pasli-zemin/main/install-macos.sh | bash
 ```
 
-These installers are PowerShell and Bash scripts (not Rust); they install the downloaded binary into your user directory and add it to PATH (no administrator rights needed). They do **not** register the extension — use the `.mcpb` route above for that. To verify, run `claude-code-setup status` in a new terminal.
+These installers are PowerShell and Bash scripts (not Rust); they install the downloaded binary into your user directory and add it to PATH (no administrator rights needed). They do **not** register the extension — use the `.mcpb` route above for that. To verify, run `pasli-zemin status` in a new terminal.
 
 For detailed installation, see [INSTALLATION.en.md](INSTALLATION.en.md)
 
@@ -135,17 +135,17 @@ For detailed installation, see [INSTALLATION.en.md](INSTALLATION.en.md)
 cargo build --release
 
 # Resulting binary:
-# Windows: ./target/release/claude-code-setup.exe
-# Linux/macOS: ./target/release/claude-code-setup
+# Windows: ./target/release/pasli-zemin.exe
+# Linux/macOS: ./target/release/pasli-zemin
 ```
 
 ### Automatic Setup and Environment Diagnostics
 ```bash
 # Checks prerequisites and installs the memory skeleton
-./target/release/claude-code-setup install --hooks
+./target/release/pasli-zemin install --hooks
 
 # System and environment diagnostic status
-./target/release/claude-code-setup status
+./target/release/pasli-zemin status
 ```
 
 ---
@@ -178,23 +178,23 @@ All commands accept a `--home-dir` override for test isolation (except `install-
 #### Managing MCP Servers per Target
 ```bash
 # Define an MCP server at project level (.mcp.json)
-./target/release/claude-code-setup mcp-set github \
+./target/release/pasli-zemin mcp-set github \
   --command "npx" --arg "-y" --arg "@modelcontextprotocol/server-github" \
   --env "GITHUB_TOKEN=$GITHUB_TOKEN" --target project
 
 # Disable the server in the Claude Desktop configuration
-./target/release/claude-code-setup mcp-disable github --target claude-desktop
+./target/release/pasli-zemin mcp-disable github --target claude-desktop
 
 # Remove the server entirely (the --remove flag is mandatory)
-./target/release/claude-code-setup mcp-unset github --remove --target claude-code
+./target/release/pasli-zemin mcp-unset github --remove --target claude-code
 ```
 
 #### Adding Notes and RRF Hybrid Search
 ```bash
-./target/release/claude-code-setup memory-note "Architecture Decisions" --body "Runtime migration to a native Rust binary is complete."
-./target/release/claude-code-setup memory-index --edge-threshold 0.70
-./target/release/claude-code-setup memory-search "Rust architecture" --mode hybrid --limit 5 --min-score 0.30
-./target/release/claude-code-setup memory-related architecture-decisions.md
+./target/release/pasli-zemin memory-note "Architecture Decisions" --body "Runtime migration to a native Rust binary is complete."
+./target/release/pasli-zemin memory-index --edge-threshold 0.70
+./target/release/pasli-zemin memory-search "Rust architecture" --mode hybrid --limit 5 --min-score 0.30
+./target/release/pasli-zemin memory-related architecture-decisions.md
 ```
 
 ---

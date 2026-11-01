@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Code Setup - macOS Installer
+# Paslı Zemin - macOS Installer
 # Downloads and installs the latest release for macOS x64
 # Usage: bash install-macos.sh [--install-dir /custom/path]
 
@@ -34,12 +34,12 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo -e "${CYAN}🚀 Claude Code Setup - macOS Installer${NC}"
+echo -e "${CYAN}🚀 Paslı Zemin - macOS Installer${NC}"
 echo -e "${CYAN}📦 Installing to: $INSTALL_DIR${NC}"
 
 # Fetch latest release
 echo -e "${YELLOW}📥 Fetching latest release...${NC}"
-API_RESPONSE=$(curl -s "https://api.github.com/repos/Ercaner1988/claude-code-setup-rustified/releases/latest")
+API_RESPONSE=$(curl -s "https://api.github.com/repos/Ercaner1988/pasli-zemin/releases/latest")
 LATEST_TAG=$(echo "$API_RESPONSE" | grep -o '"tag_name": *"[^"]*' | head -1 | cut -d'"' -f4)
 
 if [[ -z "$LATEST_TAG" ]]; then
@@ -84,7 +84,7 @@ mkdir -p "$INSTALL_DIR"
 echo -e "${GREEN}✅ Created directory: $INSTALL_DIR${NC}"
 
 # Download binary
-BINARY_PATH="$INSTALL_DIR/claude-code-setup"
+BINARY_PATH="$INSTALL_DIR/pasli-zemin"
 echo -e "${YELLOW}⬇️  Downloading binary...${NC}"
 curl -L "$DOWNLOAD_URL" -o "$BINARY_PATH"
 echo -e "${GREEN}✅ Downloaded: $BINARY_PATH${NC}"
@@ -122,7 +122,7 @@ echo -e "${GREEN}✅ Installation complete!${NC}"
 echo ""
 echo -e "${CYAN}📝 Next steps:${NC}"
 echo -e "${CYAN}   1. Restart Terminal or run: source ~/.zshrc${NC}"
-echo -e "${CYAN}   2. Verify: claude-code-setup --version${NC}"
-echo -e "${CYAN}   3. Configure MCP: claude-code-setup mcp-list${NC}"
+echo -e "${CYAN}   2. Verify: pasli-zemin --version${NC}"
+echo -e "${CYAN}   3. Configure MCP: pasli-zemin mcp-list${NC}"
 echo ""
-echo -e "${CYAN}📚 Docs: https://github.com/Ercaner1988/claude-code-setup-rustified${NC}"
+echo -e "${CYAN}📚 Docs: https://github.com/Ercaner1988/pasli-zemin${NC}"

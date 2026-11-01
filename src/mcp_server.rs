@@ -3,7 +3,8 @@ use std::io::{self, BufRead, Write};
 
 #[derive(Debug, serde::Deserialize)]
 pub struct JsonRpcRequest {
-    pub id: serde_json::Value,
+    pub jsonrpc: Option<String>,
+    pub id: Option<serde_json::Value>,
     pub method: String,
     #[serde(default)]
     pub params: serde_json::Value,
@@ -22,13 +23,15 @@ pub fn run_mcp_mode() -> anyhow::Result<()> {
 
         match serde_json::from_str::<JsonRpcRequest>(&line) {
             Ok(request) => {
-                let response = handle_request(&request);
-                writeln!(stdout, "{}", response)?;
-                stdout.flush()?;
+                if let Some(response) = handle_request(&request) {
+                    writeln!(stdout, "{}", response)?;
+                    stdout.flush()?;
+                }
             }
             Err(_) => {
                 let error_response = json!({
                     "jsonrpc": "2.0",
+                    "id": serde_json::Value::Null,
                     "error": {
                         "code": -32700,
                         "message": "Parse error"
@@ -43,16 +46,30 @@ pub fn run_mcp_mode() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn handle_request(req: &JsonRpcRequest) -> String {
+pub fn handle_request(req: &JsonRpcRequest) -> Option<String> {
+    // A message without an id is a notification: it is never answered,
+    // not even with an error. MCP's `notifications/initialized` lands
+    // here, and replying to it makes strict clients treat the session
+    // as broken.
+    let id = req.id.as_ref()?;
+    if req.method.starts_with("notifications/") {
+        return None;
+    }
+
     let response = match req.method.as_str() {
-        "initialize" => initialize(&req.id),
-        "tools/list" => list_tools(&req.id),
-        "tools/call" => call_tool(&req.id, &req.params),
-        "resources/list" => list_resources(&req.id),
-        _ => json_rpc_error(&req.id, -32601, "Method not found"),
+        "initialize" => initialize(id),
+        "ping" => json!({
+            "jsonrpc": "2.0",
+            "id": id,
+            "result": {}
+        }),
+        "tools/list" => list_tools(id),
+        "tools/call" => call_tool(id, &req.params),
+        "resources/list" => list_resources(id),
+        _ => json_rpc_error(id, -32601, "Method not found"),
     };
 
-    response.to_string()
+    Some(response.to_string())
 }
 
 fn initialize(id: &serde_json::Value) -> serde_json::Value {
@@ -66,7 +83,7 @@ fn initialize(id: &serde_json::Value) -> serde_json::Value {
                 "resources": {}
             },
             "serverInfo": {
-                "name": "claude-code-setup",
+                "name": "pasli-zemin",
                 "version": env!("CARGO_PKG_VERSION")
             }
         }
@@ -185,6 +202,60 @@ fn list_tools(id: &serde_json::Value) -> serde_json::Value {
                         "type": "object",
                         "properties": {}
                     }
+                },
+                {
+                    "name": "governor_trim",
+                    "description": "Perform an immediate RAM trim and QoS priority boost across AI tools and builders to prevent system freezing",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {}
+                    }
+                },
+                {
+                    "name": "sync_all",
+                    "description": "Synchronize MCP configurations and apply Bun runtime optimization across all 4 AI environments (Claude Code, Claude Desktop, OpenAI Codex, Antigravity)",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {}
+                    }
+                },
+                {
+                    "name": "workiq_status",
+                    "description": "Check Windows Work IQ / Microsoft 365 Graph authentication and endpoints status",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {}
+                    }
+                },
+                {
+                    "name": "workiq_search",
+                    "description": "Search corporate Microsoft 365 data (emails, OneDrive documents, calendar)",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "query": {
+                                "type": "string",
+                                "description": "Search keyword or natural language query"
+                            }
+                        },
+                        "required": ["query"]
+                    }
+                },
+                {
+                    "name": "workiq_agenda",
+                    "description": "Get upcoming Microsoft 365 calendar events and meetings",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {}
+                    }
+                },
+                {
+                    "name": "workiq_recent_files",
+                    "description": "Get recently accessed Microsoft 365 / OneDrive documents",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {}
+                    }
                 }
             ]
         }
@@ -297,6 +368,22 @@ pub fn tool_to_cli_args(tool: &str, args: &serde_json::Value) -> Result<Vec<Stri
             }
             Ok(vec!["memory-search".to_string(), query])
         }
+        "governor_trim" => Ok(vec!["governor".to_string(), "trim".to_string()]),
+        "sync_all" => Ok(vec![
+            "sync".to_string(),
+            "--target".to_string(),
+            "all".to_string(),
+        ]),
+        "workiq_status" => Ok(vec!["work-iq".to_string(), "status".to_string()]),
+        "workiq_search" => {
+            let query = text_of("query");
+            if query.is_empty() {
+                return Err("workiq_search requires 'query'".to_string());
+            }
+            Ok(vec!["work-iq".to_string(), "search".to_string(), query])
+        }
+        "workiq_agenda" => Ok(vec!["work-iq".to_string(), "agenda".to_string()]),
+        "workiq_recent_files" => Ok(vec!["work-iq".to_string(), "recent-files".to_string()]),
         other => Err(format!("Unknown tool '{other}'")),
     }
 }
@@ -337,7 +424,7 @@ fn list_resources(id: &serde_json::Value) -> serde_json::Value {
                 {
                     "uri": "claude-code://help",
                     "name": "Help",
-                    "description": "claude-code-setup CLI help and usage"
+                    "description": "pasli-zemin CLI help and usage"
                 },
                 {
                     "uri": "claude-code://config",
@@ -373,7 +460,7 @@ mod tests {
                 .and_then(|r| r.get("serverInfo"))
                 .and_then(|s| s.get("name"))
                 .and_then(|n| n.as_str()),
-            Some("claude-code-setup")
+            Some("pasli-zemin")
         );
     }
 
@@ -432,5 +519,30 @@ Govde metni" }),
         assert_eq!(args[0], "memory-note");
         assert_eq!(args[1], "Baslik");
         assert_eq!(args[2], "--body");
+    }
+
+    #[test]
+    fn bildirimler_asla_yanit_dondurmez() {
+        let req: JsonRpcRequest = serde_json::from_str(
+            r#"{"jsonrpc":"2.0","method":"notifications/initialized"}"#
+        ).unwrap();
+        assert_eq!(handle_request(&req), None);
+
+        // id ile gelse bile bildirimler yok sayilmali
+        let req2: JsonRpcRequest = serde_json::from_str(
+            r#"{"jsonrpc":"2.0","id":99,"method":"notifications/cancelled"}"#
+        ).unwrap();
+        assert_eq!(handle_request(&req2), None);
+    }
+
+    #[test]
+    fn ping_bos_sonuc_dondurur() {
+        let req: JsonRpcRequest = serde_json::from_str(
+            r#"{"jsonrpc":"2.0","id":42,"method":"ping"}"#
+        ).unwrap();
+        let resp = handle_request(&req).expect("ping yanit vermeli");
+        let parsed: serde_json::Value = serde_json::from_str(&resp).unwrap();
+        assert_eq!(parsed["id"], 42);
+        assert_eq!(parsed["result"], serde_json::json!({}));
     }
 }
